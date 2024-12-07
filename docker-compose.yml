@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  rag_pstgrs:
+    image: postgres:latest
+    container_name: rag_pstgrs
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: games
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./storage:/var/lib/postgresql/data
+
+  rag_app:
+    build:
+      context: .
+    # restart: unless-stopped
+    container_name: rag_app
+    depends_on:
+      - rag_pstgrs
+    environment:
+      DATABASE_URL: postgres://root:root@rag_pstgrs:5432/games
+    volumes:
+      - .:/application
+    ports:
+      - "8000:8000"
+
+volumes:
+  storage:
