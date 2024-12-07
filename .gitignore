@@ -1,5 +1,2 @@
-/resources/llama.cpp/
-/resources/asymmetric_msmarco-MiniLM-L-12-v3/
-/resources/crossencoder_ms-marco-MiniLM-L-12-v2/
-/resources/gte-base/
-/resources/oobabooga_linux/
+
+.venv/
