@@ -1,12 +1,25 @@
-FROM python:3.11-alpine
+FROM python:3.9-alpine
 
-RUN apk --update upgrade
-RUN apk add --no-cache build-base
+RUN apk --no-cache add build-base && \
+    pip install poetry
 
-# RUN pip install --no-cache-dir poetry
-RUN pip install poetry
+# RUN apk --update upgrade
+# RUN apk add build-base
 
-# COPY pyproject.toml poetry.lock /application/
+# # RUN apk update && apk add --no-cache \
+# #     gcc \
+# #     libffi-dev \
+# #     python3-dev \
+# #     musl-dev \
+# #     build-base \
+# #     rust \
+# #     cargo
+
+# # RUN pip install --no-cache-dir poetry
+# # RUN pip install --upgrade pip
+# RUN pip install poetry
+
+# # COPY pyproject.toml poetry.lock /application/
 
 # Устанавливаем зависимости с помощью poetry
 WORKDIR /application
