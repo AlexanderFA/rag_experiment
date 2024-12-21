@@ -1,6 +1,7 @@
 services:
   rag_pstgrs:
-    image: postgres:latest
+    # image: postgres:latest
+    image: pgvector/pgvector:pg17
     container_name: rag_pstgrs
     environment:
       POSTGRES_USER: root
@@ -10,6 +11,13 @@ services:
       - "5432:5432"
     volumes:
       - ./storage:/var/lib/postgresql/data
+      - ./init_pgvector.sql:/docker-entrypoint-initdb.d/init_pgvector.sql
+
+  adminer:
+    image: adminer
+    # restart: always
+    ports:
+      - 8100:8080
 
   rag_app:
     # platform: linux/amd64
