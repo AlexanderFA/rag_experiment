@@ -1,33 +1,22 @@
-FROM python:3.9-alpine
+FROM python:3.11-slim
+# FROM --platform=linux/amd64 python:3.11-alpine
 
-RUN apk --no-cache add build-base && \
-    pip install poetry
-
-# RUN apk --update upgrade
-# RUN apk add build-base
-
-# # RUN apk update && apk add --no-cache \
-# #     gcc \
-# #     libffi-dev \
-# #     python3-dev \
-# #     musl-dev \
-# #     build-base \
-# #     rust \
-# #     cargo
-
-# # RUN pip install --no-cache-dir poetry
-# # RUN pip install --upgrade pip
-# RUN pip install poetry
-
-# # COPY pyproject.toml poetry.lock /application/
-
-# Устанавливаем зависимости с помощью poetry
 WORKDIR /application
-# RUN poetry install
 
-# Копируем код проекта в контейнер
-# COPY . /app/
+COPY requirements.txt /application/requirements.txt
+RUN pip install --no-cache-dir -r /application/requirements.txt
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     build-essential \
+#     clang \
+#     && apt-get clean && rm -rf /var/lib/apt/lists/* \
+#     && pip install --no-cache-dir -r /application/requirements.txt
 
-# Указываем команду для запуска приложения
+# RUN apk --no-cache add build-base && \
+#     apk --no-cache add clang-dev && \
+#     pip install -r requirements.txt
+#     # ln -s /usr/lib/libclang-cpp.so* /usr/lib/libclang.so && \
+#     # if [ -f requirements.txt ]; then python -m pip install --no-cache-dir -r requirements.txt; fi
+
 # CMD ["poetry", "run", "uvicorn", "main:app"]
+# python -m app
 CMD ["sleep", "infinity"]

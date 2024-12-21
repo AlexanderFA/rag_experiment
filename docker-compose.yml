@@ -12,6 +12,8 @@ services:
       - ./storage:/var/lib/postgresql/data
 
   rag_app:
+    # platform: linux/amd64
+    platform: linux/x86_64
     build: .
       #context: .
     # restart: unless-stopped
